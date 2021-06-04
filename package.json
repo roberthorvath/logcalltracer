@@ -1,0 +1,31 @@
+{
+  "name": "logtracer",
+  "version": "1.0.0",
+  "description": "A minimalistic library that shows the caller's location in log messages, with an optional timestamp, log level.",
+  "engines": {
+    "node": ">= 12.22.1"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roberthorvath/logtracer.git"
+  },
+  "keywords": [
+    "log",
+    "logger",
+    "caller",
+    "caller-location",
+    "stacktrace",
+    "trace",
+    "timestamp"
+  ],
+  "author": "Robert Horvath",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roberthorvath/logtracer/issues"
+  },
+  "homepage": "https://github.com/roberthorvath/logtracer#readme"
+}
