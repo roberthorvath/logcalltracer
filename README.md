@@ -1,4 +1,4 @@
-# logtracer
+# logcalltracer
 A minimalistic library that shows the caller's location in log messages, with an optional timestamp, log level.
 
 ## Usage
@@ -11,7 +11,7 @@ You can use the following methods, the same way you would use console.log, .warn
 The default output is the caller's location, then the values of the parameters. Example:
 ```javascript
 // Import module
-const logger = require("logtracer");
+const logger = require("logcalltracer");
 
 logger.logInfo("Hello world!")
 ```
@@ -29,7 +29,7 @@ A method to get a formatted timestamp. The default value is `undefined` so log o
 Example:
 ```javascript
 // Import module
-const logger = require("logtracer");
+const logger = require("logcalltracer");
 
 logger.options.timeStampFormatter = () => new Date().toISOString();
 
@@ -49,7 +49,7 @@ This library uses `util.inspect` to format arguments. You can change the default
 
 For a development environment, I suggest the following to start with:
 ```javascript
-const logger = require("logtracer");
+const logger = require("logcalltracer");
 logger.options.inspectOptions = {compact: false, depth: Infinity};
 ```
 ### **logInfoFn**: Function, and **logWarnFn**, **logErrorFn**
@@ -63,7 +63,7 @@ By default, the methods are mapped to the `console`'s logging methods:
 You can plug in your own, or an external logging library's logger methods. Example:
 
 ```javascript
-const logger = require("logtracer")
+const logger = require("logcalltracer")
 const util = require("util")
 const fs = require("fs");
 
@@ -95,7 +95,7 @@ By default, no coloring is performed on the output. When both `showLogLevel` and
 ### An example with options
 ```javascript
 // Import module
-const logger = require("logtracer");
+const logger = require("logcalltracer");
 
 // Customize the behavior if you want to.
 if (process.env.NODE_ENV === "production") {
