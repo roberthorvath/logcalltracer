@@ -26,7 +26,7 @@ shows the following output:
 ## Customizing output
 The library can be configured to provide additional information, such as timestamp, log level, coloring, and so on. Use the following properties on the `options` object:
 ### **timeStampFormatter** : Function
-A method to get a formatted timestamp. The default value is `undefined` so log output has no timestamp. You can use the built-in Date object, or any 3rd party library, to provide a method that returns your preferred timestamp.
+A method to get a formatted timestamp. The default value is `undefined`, so log output has no timestamp. You can use the built-in Date object or any 3rd party library to provide a method that returns your preferred timestamp.
 
 Example:
 ```javascript
@@ -44,7 +44,7 @@ shows the following output:
 ```
 
 ### **showLogLevel**: boolean
-When et to true, the output displays the log level.
+When set to true, the output displays the log level.
 
 ### **inspectOptions**: object
 This library uses `util.inspect` to format arguments. You can change the default formatting behavior using the inspectOptions: https://nodejs.org/dist/latest-v16.x/docs/api/util.html#util_util_inspect_object_options
@@ -87,7 +87,7 @@ will create a file with the following content:
 2021-06-04T12:26:09.455Z  /myApp/start.js:16: Application starting.. { a: 42, b: { c: 'Hi!' } }
 ```
 ### **logLevelColored**: get/set(boolean)
-By default, no coloring is performed on the output. When both `showLogLevel` and `logLevelColored` are set to true, the log level is colored as following:
+By default, no coloring is performed on the output. When both `showLogLevel` and `logLevelColored` are set to true, the log level is colored as follows:
 | Method | Color |
 |---     |---    |
 |logInfo | None  |
