@@ -1,4 +1,6 @@
 # logcalltracer
+[![NPM Version][npm-version-image]][npm-url]
+
 A minimalistic library that shows the caller's location in log messages, with an optional timestamp, log level.
 
 ## Usage
@@ -125,3 +127,6 @@ shows the following output:
 ## License
 
 [MIT](LICENSE)
+
+[npm-url]: https://www.npmjs.com/package/logcalltracer
+[npm-version-image]: https://badgen.net/npm/v/logcalltracer
