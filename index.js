@@ -1,6 +1,45 @@
 "use strict";
 
-const util = require('util');
+const util = require("util");
+
+// Compatibility for browser-based scenario:
+if (!util.formatWithOptions) {
+    /**
+     * Creates a replacer method for `JSON.stringify` to remove any methods, circular references, and repeated values - leaving only data fields.
+     * See https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Cyclic_object_value#examples
+     */
+    const jsonSimplifier = () => {
+        const seen = new WeakSet();
+        return (_, value) => {
+            if (typeof value === "function") return;
+            if (typeof value === "object" && value !== null) {
+                if (seen.has(value)) {
+                    const valueObj = /** @type {Object} */(value);
+                    return `<already seen or circular reference> ${valueObj.constructor.name}`;
+                }
+                seen.add(value);
+            }
+            return value;
+        }
+    }
+    util.formatWithOptions = function() {
+        // Remove 1st item: inspectOptions.
+        const args = Array.from(arguments).slice(1);
+        const spacer = options.inspectOptions && options.inspectOptions.compact ? 0 : 2;
+        let r = "";
+        args.forEach(elem => {
+            if (typeof elem === "object") {
+                r = r.concat(JSON.stringify(elem, jsonSimplifier(), spacer))
+            } else {
+                r = r.concat(elem);
+            }
+            r = r.concat(" ");
+        });
+
+        return r;
+    }
+}
+// end of: Compatibility for browser-based scenario
 
 let colorWarn = "";
 let colorErr = "";
@@ -17,6 +56,8 @@ const options = {
     logWarnFn: console.warn,
     logErrorFn: console.error,
     set logLevelColored(value) {
+        // Do not set colors when running inside a browser.
+        if (window && window.document) { return; }
         // https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
         colorWarn = value ? "\x1b[93m" : ""; // When `value` is true: yellow
         colorErr = value ? "\x1b[91m" : "";  // When `value` is true: red
