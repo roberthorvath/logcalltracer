@@ -32,6 +32,7 @@ This package is intended to be used in server applications based on Node.js and 
 - Brave 1.27.108 Chromium: 92.0.4515.107 (Official Build) (64-bit)
 - Chrome 91.0.4472.164 (Official Build) (64-bit)
 - Edge 92.0.902.55 (Official build) (64-bit)
+- FireFox 90.0.2 (64-bit)
 
 ## Customizing output
 The library can be configured to provide additional information, such as timestamp, log level, coloring, and so on. Use the following properties on the `options` object:

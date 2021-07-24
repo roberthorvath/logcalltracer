@@ -1,6 +1,6 @@
 {
   "name": "logcalltracer",
-  "version": "1.1.0",
+  "version": "1.1.5",
   "description": "A minimalistic library that shows the caller's location in log messages, with an optional timestamp, log level.",
   "engines": {
     "node": ">= 12.22.1",

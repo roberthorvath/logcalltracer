@@ -57,7 +57,7 @@ const options = {
     logErrorFn: console.error,
     set logLevelColored(value) {
         // Do not set colors when running inside a browser.
-        if (window && window.document) { return; }
+        if (globalThis.document) { return; }
         // https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
         colorWarn = value ? "\x1b[93m" : ""; // When `value` is true: yellow
         colorErr = value ? "\x1b[91m" : "";  // When `value` is true: red
@@ -89,7 +89,7 @@ const getCallerLocationHelper = (error, structuredStackTrace) => {
  * Gets the external caller's location.
  * @returns {string} The caller's location in the format: 'location/to/file:lineNumber'. Example: `/app/start.js:15` or `c:\app\start.js:15`
  */
-const getCallerLocation = () => {
+const getCallerLocationV8 = () => {
     // Read more about Error.prepareStackTrace and CallSite here: https://v8.dev/docs/stack-trace-api
 
     const originalFormatter = Error.prepareStackTrace;
@@ -101,6 +101,41 @@ const getCallerLocation = () => {
 
     Error.prepareStackTrace = originalFormatter;
     return result;
+}
+
+/**
+ * Gets the external caller's location in Firefox or Safari browsers.
+ * @returns {string} The caller's location in the format: 'functionName @ location/to/file:lineNumber'. Example: `App @ http://localhost:3000/static/js/main.chunk.js:175:56`
+ */
+const getCallerLocationFfOrJsCore = () => {
+    const fnRegExp = /((.*".+"[^@]*)?[^@]*)(?:@)/;
+    let error;
+    try {
+        throw new Error()
+    } catch (e) {
+        error = e;
+    }
+    const stack = error.stack.split("\n");
+    const frames = stack.map(line => {
+        const fnMatches = line.match(fnRegExp);
+        const fnName = fnMatches && fnMatches[1] ? fnMatches[1] : "fn?";
+        const location = line.replace(fnRegExp, '');
+        return { fnName, location }
+    });
+
+    return `${frames[2].fnName()} @ (${frames[2].location})`;
+}
+
+/**
+ * Gets the external caller's location.
+ * @returns {string} The caller's location in the format: 'location/to/file:lineNumber'. Example: `/app/start.js:15` or `c:\app\start.js:15`
+ */
+let getCallerLocation;
+if (globalThis.navigator && !!globalThis.navigator.userAgent
+    && (globalThis.navigator.userAgent.includes("Firefox") || globalThis.navigator.userAgent.includes("Safari") && !globalThis.navigator.userAgent.includes("Chrome"))) {
+    getCallerLocation = getCallerLocationFfOrJsCore;
+} else {
+    getCallerLocation = getCallerLocationV8;
 }
 
 /**
