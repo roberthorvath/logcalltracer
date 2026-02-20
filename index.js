@@ -109,6 +109,7 @@ const getCallerLocationV8 = () => {
  */
 const getCallerLocationFfOrJsCore = () => {
     const fnRegExp = /((.*".+"[^@]*)?[^@]*)(?:@)/;
+    /** @type {Error} */
     let error;
     try {
         throw new Error()
@@ -123,7 +124,7 @@ const getCallerLocationFfOrJsCore = () => {
         return { fnName, location }
     });
 
-    return `${frames[2].fnName()} @ (${frames[2].location})`;
+    return `${frames[2].fnName} @ (${frames[2].location})`;
 }
 
 /**
