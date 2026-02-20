@@ -1,7 +1,7 @@
 # logcalltracer
 [![NPM Version][npm-version-image]][npm-url]
 
-A minimalistic library that shows the caller's location in log messages, with an optional timestamp, log level.
+A minimalistic library that shows the caller's location in log messages, with an optional timestamp and log level.
 
 ## Usage
 
@@ -26,18 +26,17 @@ shows the following output:
 ## Supported environments
 
 - Node.js >= 12.22.1
-- Deno >= 1.12.0
 
-This package is intended to be used in server applications based on Node.js and Deno. Browsers are not supported, but logcalltracer seems to work with:
+This package is intended for use in server applications built with Node.js and Deno. Browsers are not supported, but when used with a module bundler, logcalltracer seems to work with:
 - Brave 1.27.108 Chromium: 92.0.4515.107 (Official Build) (64-bit)
 - Chrome 91.0.4472.164 (Official Build) (64-bit)
 - Edge 92.0.902.55 (Official build) (64-bit)
-- FireFox 90.0.2 (64-bit)
+- Firefox 90.0.2 (64-bit)
 
 ## Customizing output
 The library can be configured to provide additional information, such as timestamp, log level, coloring, and so on. Use the following properties on the `options` object:
 ### **timeStampFormatter** : Function
-A method to get a formatted timestamp. The default value is `undefined`, so log output has no timestamp. You can use the built-in Date object or any 3rd party library to provide a method that returns your preferred timestamp.
+A method to get a formatted timestamp. The default value is `undefined`, so the log output has no timestamp. You can use the built-in Date object or any 3rd party library to provide a method that returns your preferred timestamp.
 
 Example:
 ```javascript
